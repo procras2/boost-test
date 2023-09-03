@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Use find to get all files that have changed since a specific time.
+#   0 means last 24 hours
+#   1 means 24-48 hours
+
+filter='container|cache'
+
+find ~ -mtime 0 2>/dev/null | grep -E -v "$filter"
+
