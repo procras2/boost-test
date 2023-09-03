@@ -4,7 +4,17 @@
 #   0 means last 24 hours
 #   1 means 24-48 hours
 
-filter='container|cache'
+rootdir='/'
 
-find ~ -mtime 0 2>/dev/null | grep -E -v "$filter"
+exclude=\
+'container|cache|'\
+'\/[a-f0-9]{3,}_0|'\
+"^$HOME"\
+'/(.bash_history|viminfo|.cache/chromium)'
+
+include='^/(home|etc|dev)'
+
+find "$rootdir" -type f -mtime 0 2>/dev/null | \
+    grep -E "$include" | \
+    grep -E -v "$exclude"
 
